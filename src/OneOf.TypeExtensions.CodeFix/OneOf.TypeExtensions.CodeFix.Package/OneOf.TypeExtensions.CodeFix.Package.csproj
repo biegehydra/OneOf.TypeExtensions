@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>OneOf.TypeExtensions.CodeFixes</PackageId>
+    <PackageVersion>1.0.0.1</PackageVersion>
+    <Authors>sweed</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/biegehydra/OneOf.TypeExtensions</RepositoryUrl>
+	  <RepositoryType>git</RepositoryType>
+    <Description>Code fixes for OneOf.TypeExtensions to encourage type safe extension methods</Description>
+	  <Copyright>Copyright Connor Hallman 2023</Copyright>
+	  <PackageTags>OneOf.TypeExtensions.CodeFix, analyzers</PackageTags>
+	  <Authors>Connor Hallman</Authors>
+	  <Company>Connor Hallman</Company>
+	  <Title>OneOf.TypeExtensions.CodeFixes</Title>
+	  <Product>OneOf.TypeExtensions.CodeFixes</Product>
+	  <PackageId>OneOf.TypeExtensions.Analyzer</PackageId>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OneOf.TypeExtensions.CodeFix.CodeFixes\OneOf.TypeExtensions.CodeFix.CodeFixes.csproj" />
+    <ProjectReference Include="..\OneOf.TypeExtensions.CodeFix\OneOf.TypeExtensions.CodeFix.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="tools\*.ps1" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <Target Name="_AddAnalyzersToOutput">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="$(OutputPath)\OneOf.TypeExtensions.CodeFix.dll" PackagePath="analyzers/dotnet/cs" />
+      <TfmSpecificPackageFile Include="$(OutputPath)\OneOf.TypeExtensions.CodeFix.CodeFixes.dll" PackagePath="analyzers/dotnet/cs" />
+    </ItemGroup>
+  </Target>
+
+	<ItemGroup>
+		<None Include="LICENSE" Pack="true" PackagePath="/" />
+	</ItemGroup>
+
+</Project>
