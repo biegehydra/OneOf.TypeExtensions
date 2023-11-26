@@ -24,7 +24,7 @@ Via nuget `NuGet\Install-Package OneOf.TypeExtensions`
 
 ### Analyzer with code fix
 
-There is also an analyzer with code fix that will let you quickly replace all usages of IsT_ and AsT_ with the source generated extension methods.
+There is also an analyzer with code fix that will let you quickly replace all usages of IsT_ and AsT_ with the source generated extension methods. I personally won't be keeping this package as part of my projects because I don't want to bog down my IDE, but you may find it useful to quickly make changes to an entire project/solution.
 
 Install: `NuGet\Install-Package OneOf.TypeExtensions.Analyzer -Version 1.0.0.1`
 
