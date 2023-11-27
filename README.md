@@ -1,4 +1,4 @@
-## OneOf.TypeExtensions
+## OneOf.TypeExtensions   [![NuGet](https://img.shields.io/nuget/dt/OneOf.TypeExtensions?label=NuGet%20Downloads&style=plastic)](https://www.nuget.org/packages/OneOf.TypeExtensions/)
 
 An incremental source generator that creates extension methods for `OneOf<>` types for more readable and robust code.
 
