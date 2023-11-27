@@ -8,9 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>OneOf.TypeExtensions.CodeFixes</PackageId>
-    <PackageVersion>1.0.0.1</PackageVersion>
-    <Authors>sweed</Authors>
+    <PackageVersion>1.0.2</PackageVersion>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/biegehydra/OneOf.TypeExtensions</RepositoryUrl>

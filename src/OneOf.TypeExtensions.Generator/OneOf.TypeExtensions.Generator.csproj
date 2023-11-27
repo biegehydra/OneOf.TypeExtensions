@@ -23,6 +23,7 @@
 	  <RepositoryType>git</RepositoryType>
 	  <PackageTags>oneof, source generator, type extensions</PackageTags>
 	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <Version>1.0.2</Version>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -31,7 +32,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="..\OneOf.TypeExtensions.Shared\bin\Release\netstandard2.0\OneOf.TypeExtensions.Shared.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
 		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
 	</ItemGroup>
 
