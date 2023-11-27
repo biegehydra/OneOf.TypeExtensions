@@ -1,24 +1,35 @@
 ## OneOf.TypeExtensions
 
-An incremental source generator that creates extension methods for OneOf<> types for more readable code.
+An incremental source generator that creates extension methods for `OneOf<>` types for more readable and robust code.
+
+### Purpose
+
+The reason for this package is that methods and fields of `OneOf` objects do not give any indication of what type you are referring to. This makes reading code, reviewing PRs, and altering signatures especially hard. Take for example,
+```csharp
+var oneOf = SomeFunction();
+if (oneOf.IsT1)
+{
+    // do stuff
+}
+```
+If you saw this code in a PR, you would have no idea what `IsT1` is checking for. Furthermore, imagine if the return type of `SomeFunction()` changed from `OneOf<int, string>` to `OneOf<char, int, string>`. `IsT1` would change from checking if the `OneOf` is a `string` to checking if it's an `int`, and you would have no idea. This package solves that by having typed extension methods. `oneOf.IsString()`
 
 ### Important
 
-Source generated files can have very long names and will likely exceed the path length limit of 256 if you have not disabled it on your computer. See [this article](https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/The-Windows-10-default-path-length-limitation-MAX-PATH-is-256-characters.html) for instructions on increasing the limit on Windows.
+Source generated files can have very long names and may exceed the path length limit of 256, if you have not increased it on your computer. See [this article](https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/The-Windows-10-default-path-length-limitation-MAX-PATH-is-256-characters.html) for instructions on increasing the limit on Windows.
 
 ### Installation
 
 Via nuget `NuGet\Install-Package OneOf.TypeExtensions`
 
-### Breaking changes
+### Analyzer with code fix
 
-This project is still in beta and therefore breaking changes may occur. The only thing I forsee changing is how generated functions will be named when there are generics. Currently, `OneOf<int, Dictionary<string, int>>` will create extension methods like so `oneOf.IsDictionaryOfString_Int`. This looks fine but it can get a little ugly when there are multiple nested generics.
+There is also an analyzer with code fix that will let you quickly replace all usages of IsT_ and AsT_ with the source generated extension methods. I personally won't be keeping this package as part of my projects because I don't want to bog down my IDE, but you may find it useful to quickly make changes to an entire project/solution.
 
-Also, generated code currently has no namespace which is fine with me but may be changed based on feedback.
+Install: `NuGet\Install-Package OneOf.TypeExtensions.Analyzer -Version 1.0.0.1`
 
-### Performance
+![image](https://github.com/biegehydra/OneOf.TypeExtensions/assets/84036995/3bfa5bae-3f0d-4a8f-80bb-405e1e38bbbf)
 
-I have tried to make the generator somewhat performant, but I am by no means an expert at incremental source generators. Feel free to submit a PR improving it's efficiency.
 
 ### Example Generated Code
 
@@ -69,7 +80,7 @@ public static partial class OneOfTypeExtensions
 
 ### Supported Types
 
-I believe the generator should support practically any type, if you find a type or combination of types that causes an error, feel free to create an issue or submit a PR.
+The generator should support practically any type, if you find a type or combination of types that causes an error, feel free to create an issue or submit a PR.
 
 Special consideration was given to support these types
 - [X] Nullable value types `int?`
@@ -80,6 +91,16 @@ Special consideration was given to support these types
 - [X] Nested generics `List<List<int?>>`
 - [X] Nested types `Class1.Class2`
 - [X] Any combination of the above
+
+### Breaking changes
+
+This project is still in beta and therefore breaking changes may occur. The only thing I forsee changing is how generated functions will be named when there are generics. Currently, `OneOf<int, Dictionary<string, int>>` will create extension methods like so `oneOf.IsDictionaryOfString_Int`. This looks fine but it can get a little ugly when there are multiple nested generics.
+
+Also, generated code currently has no namespace which is fine with me but may be changed based on feedback.
+
+### Performance
+
+I have tried to make the generator somewhat performant, but I am by no means an expert at incremental source generators. Feel free to submit a PR improving it's efficiency.
 
 ### Roadmap
 
