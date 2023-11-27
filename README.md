@@ -16,7 +16,7 @@ If you saw this code in a PR, you would have no idea what `IsT1` is checking for
 
 ### Important
 
-Source generated files can have very long names and may exceed the path length limit of 256, if you have not increased it on your computer. See [this article](https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/The-Windows-10-default-path-length-limitation-MAX-PATH-is-256-characters.html) for instructions on increasing the limit on Windows.
+Source generated files can have very long names and may exceed the default windows file path length limit of 256 if you have not increased it on your computer. See [this article](https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/The-Windows-10-default-path-length-limitation-MAX-PATH-is-256-characters.html) for instructions on increasing the limit on Windows.
 
 ### Installation
 
@@ -24,9 +24,9 @@ Via nuget `NuGet\Install-Package OneOf.TypeExtensions`
 
 ### Analyzer with code fix
 
-There is also an analyzer with code fix that will let you quickly replace all usages of IsT_ and AsT_ with the source generated extension methods. I personally won't be keeping this package as part of my projects because I don't want to bog down my IDE, but you may find it useful to quickly make changes to an entire project/solution.
+There is also an analyzer with code fix that will let you quickly replace all usages of IsT_, AsT_, MapT_, and TryPickT_, with the source generated extension methods. I personally won't be keeping this package as part of my projects because I don't want to bog down my IDE, but you may find it useful to quickly make changes to an entire project/solution.
 
-Install: `NuGet\Install-Package OneOf.TypeExtensions.Analyzer -Version 1.0.0.1`
+Install: `NuGet\Install-Package OneOf.TypeExtensions.Analyzer`
 
 ![image](https://github.com/biegehydra/OneOf.TypeExtensions/assets/84036995/3bfa5bae-3f0d-4a8f-80bb-405e1e38bbbf)
 
