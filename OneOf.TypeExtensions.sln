@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneOf.TypeExtensions.Genera
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneOf.TypeExtensions.Tests", "src\OneOf.TypeExtensions.Tests\OneOf.TypeExtensions.Tests.csproj", "{2043B6C4-2471-4B2C-BC57-B1B1E139DFB4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneOf.TypeExtensions.ConsoleTesting", "src\OneOf.TypeExtensions.ConsoleTesting\OneOf.TypeExtensions.ConsoleTesting.csproj", "{CCCE9A4A-827A-48E1-958B-16ABB2C5BA70}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneOf.TypeExtensions.CodeFix", "src\OneOf.TypeExtensions.CodeFix\OneOf.TypeExtensions.CodeFix\OneOf.TypeExtensions.CodeFix.csproj", "{9B56C9E5-6C0F-4BEB-94DB-0EEA421D7609}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneOf.TypeExtensions.CodeFix.CodeFixes", "src\OneOf.TypeExtensions.CodeFix\OneOf.TypeExtensions.CodeFix.CodeFixes\OneOf.TypeExtensions.CodeFix.CodeFixes.csproj", "{4A234B79-D36B-4A01-A49A-3CBCFBBA1C73}"
@@ -53,18 +51,6 @@ Global
 		{2043B6C4-2471-4B2C-BC57-B1B1E139DFB4}.Release|x64.Build.0 = Release|Any CPU
 		{2043B6C4-2471-4B2C-BC57-B1B1E139DFB4}.Release|x86.ActiveCfg = Release|Any CPU
 		{2043B6C4-2471-4B2C-BC57-B1B1E139DFB4}.Release|x86.Build.0 = Release|Any CPU
-		{CCCE9A4A-827A-48E1-958B-16ABB2C5BA70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CCCE9A4A-827A-48E1-958B-16ABB2C5BA70}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CCCE9A4A-827A-48E1-958B-16ABB2C5BA70}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{CCCE9A4A-827A-48E1-958B-16ABB2C5BA70}.Debug|x64.Build.0 = Debug|Any CPU
-		{CCCE9A4A-827A-48E1-958B-16ABB2C5BA70}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CCCE9A4A-827A-48E1-958B-16ABB2C5BA70}.Debug|x86.Build.0 = Debug|Any CPU
-		{CCCE9A4A-827A-48E1-958B-16ABB2C5BA70}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CCCE9A4A-827A-48E1-958B-16ABB2C5BA70}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CCCE9A4A-827A-48E1-958B-16ABB2C5BA70}.Release|x64.ActiveCfg = Release|Any CPU
-		{CCCE9A4A-827A-48E1-958B-16ABB2C5BA70}.Release|x64.Build.0 = Release|Any CPU
-		{CCCE9A4A-827A-48E1-958B-16ABB2C5BA70}.Release|x86.ActiveCfg = Release|Any CPU
-		{CCCE9A4A-827A-48E1-958B-16ABB2C5BA70}.Release|x86.Build.0 = Release|Any CPU
 		{9B56C9E5-6C0F-4BEB-94DB-0EEA421D7609}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9B56C9E5-6C0F-4BEB-94DB-0EEA421D7609}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B56C9E5-6C0F-4BEB-94DB-0EEA421D7609}.Debug|x64.ActiveCfg = Debug|Any CPU
