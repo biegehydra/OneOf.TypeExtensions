@@ -124,4 +124,10 @@
     <value>Use type safe extension instead of IsT</value>
     <comment>The title of the code fix.</comment>
   </data>
+  <data name="MapTypeTitle" xml:space="preserve">
+    <value>Use type safe extension instead of MapT</value>
+  </data>
+  <data name="TryPickTypeTitle" xml:space="preserve">
+    <value>Use type safe extension instead of TryPickT</value>
+  </data>
 </root>

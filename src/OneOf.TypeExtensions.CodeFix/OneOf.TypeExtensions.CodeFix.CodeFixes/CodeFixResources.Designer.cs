@@ -77,5 +77,23 @@ namespace OneOf.TypeExtensions.CodeFix {
                 return ResourceManager.GetString("IsTypeTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use type safe extension instead of MapT.
+        /// </summary>
+        internal static string MapTypeTitle {
+            get {
+                return ResourceManager.GetString("MapTypeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use type safe extension instead of TryPickT.
+        /// </summary>
+        internal static string TryPickTypeTitle {
+            get {
+                return ResourceManager.GetString("TryPickTypeTitle", resourceCulture);
+            }
+        }
     }
 }

@@ -121,7 +121,7 @@
     <value>Type cast can be made type safe.</value>
   </data>
   <data name="AsAnalyzerMessageFormat" xml:space="preserve">
-    <value>Type cast '{0}' can be made type safe</value>
+    <value>'{0}' can be replaced with type safe extension method</value>
   </data>
   <data name="AsAnalyzerTitle" xml:space="preserve">
     <value>Type cast can be made type safe</value>
@@ -131,11 +131,29 @@
     <comment>An optional longer localizable description of the diagnostic.</comment>
   </data>
   <data name="IsAnalyzerMessageFormat" xml:space="preserve">
-    <value>Type check '{0}' can be made type safe</value>
+    <value>'{0}' can be replaced with type safe extension method</value>
     <comment>The format-able message the diagnostic displays.</comment>
   </data>
   <data name="IsAnalyzerTitle" xml:space="preserve">
     <value>Type check can be made type safe</value>
     <comment>The title of the diagnostic.</comment>
+  </data>
+  <data name="MapAnalyzerDescription" xml:space="preserve">
+    <value>Map can be made type safe.</value>
+  </data>
+  <data name="MapAnalyzerMessageFormat" xml:space="preserve">
+    <value>'{0}' can be replaced with type safe extension method</value>
+  </data>
+  <data name="MapAnalyzerTitle" xml:space="preserve">
+    <value>Map can be made type safe</value>
+  </data>
+  <data name="TryPickAnalyzerDescription" xml:space="preserve">
+    <value>Try pick can be made type safe.</value>
+  </data>
+  <data name="TryPickAnalyzerMessageFormat" xml:space="preserve">
+    <value>'{0}' can be replaced with type safe extension method</value>
+  </data>
+  <data name="TryPickAnalyzerTitle" xml:space="preserve">
+    <value>Try pick can be made type safe</value>
   </data>
 </root>

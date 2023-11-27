@@ -14,7 +14,7 @@ namespace OneOf.TypeExtensions.CodeFix
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(OneOfTypeExtensionsCodeFixCodeFixProvider)), Shared]
     public class OneOfTypeExtensionsCodeFixCodeFixProvider : CodeFixProvider
     {
-        public sealed override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(OneOfTypeExtensionsCodeFixAnalyzer.IsTypeDiagnosticId, OneOfTypeExtensionsCodeFixAnalyzer.AsTypeDiagnosticId);
+        public sealed override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(OneOfTypeExtensionsCodeFixAnalyzer.IsTypeDiagnosticId, OneOfTypeExtensionsCodeFixAnalyzer.AsTypeDiagnosticId, OneOfTypeExtensionsCodeFixAnalyzer.MapTypeDiagnosticId, OneOfTypeExtensionsCodeFixAnalyzer.TryPickTypeDiagnosticId);
 
         public sealed override FixAllProvider GetFixAllProvider()
         {
@@ -44,7 +44,7 @@ namespace OneOf.TypeExtensions.CodeFix
                         context.RegisterCodeFix(
                             CodeAction.Create(
                                 title: CodeFixResources.IsTypeTitle,
-                                createChangedDocument: c => ConvertIsTNumberToExtensionMethodCallAsync(context.Document, declaration, c),
+                                createChangedDocument: c => ConvertIsTAsync(context.Document, declaration, c),
                                 equivalenceKey: nameof(CodeFixResources.IsTypeTitle)),
                             diagnostic);
                         break;
@@ -54,15 +54,33 @@ namespace OneOf.TypeExtensions.CodeFix
                         context.RegisterCodeFix(
                             CodeAction.Create(
                                 title: CodeFixResources.AsTypeTitle,
-                                createChangedDocument: c => ConvertAsTNumberToExtensionMethodCallAsync(context.Document, declaration, c),
+                                createChangedDocument: c => ConvertAsTAsync(context.Document, declaration, c),
                                 equivalenceKey: nameof(CodeFixResources.AsTypeTitle)),
+                            diagnostic);
+                        break;
+                    case OneOfTypeExtensionsCodeFixAnalyzer.MapTypeDiagnosticId:
+                        // Register a code action for the 'AsType' diagnostic
+                        context.RegisterCodeFix(
+                            CodeAction.Create(
+                                title: CodeFixResources.MapTypeTitle,
+                                createChangedDocument: c => ConvertMapTAsync(context.Document, declaration, c),
+                                equivalenceKey: nameof(CodeFixResources.MapTypeTitle)),
+                            diagnostic);
+                        break;
+                    case OneOfTypeExtensionsCodeFixAnalyzer.TryPickTypeDiagnosticId:
+                        // Register a code action for the 'AsType' diagnostic
+                        context.RegisterCodeFix(
+                            CodeAction.Create(
+                                title: CodeFixResources.TryPickTypeTitle,
+                                createChangedDocument: c => ConvertTryPickTAsync(context.Document, declaration, c),
+                                equivalenceKey: nameof(CodeFixResources.TryPickTypeTitle)),
                             diagnostic);
                         break;
                 }
             }
         }
 
-        private async Task<Document> ConvertIsTNumberToExtensionMethodCallAsync(Document document, MemberAccessExpressionSyntax memberAccessExpression, CancellationToken cancellationToken)
+        private async Task<Document> ConvertIsTAsync(Document document, MemberAccessExpressionSyntax memberAccessExpression, CancellationToken cancellationToken)
         {
             var text = memberAccessExpression.Name.Identifier.Text;
 
@@ -99,7 +117,7 @@ namespace OneOf.TypeExtensions.CodeFix
             return document.WithSyntaxRoot(newRoot);
         }
 
-        private async Task<Document> ConvertAsTNumberToExtensionMethodCallAsync(Document document, MemberAccessExpressionSyntax memberAccessExpression, CancellationToken cancellationToken)
+        private async Task<Document> ConvertAsTAsync(Document document, MemberAccessExpressionSyntax memberAccessExpression, CancellationToken cancellationToken)
         {
             var text = memberAccessExpression.Name.Identifier.Text;
 
@@ -132,6 +150,96 @@ namespace OneOf.TypeExtensions.CodeFix
             var root = await document.GetSyntaxRootAsync(cancellationToken);
             if (root == null) return document;
             var newRoot = root.ReplaceNode(memberAccessExpression, newMethodInvocation);
+
+            return document.WithSyntaxRoot(newRoot);
+        }
+
+        private async Task<Document> ConvertMapTAsync(Document document, MemberAccessExpressionSyntax memberAccessExpression, CancellationToken cancellationToken)
+        {
+            var text = memberAccessExpression.Name.Identifier.Text;
+
+            if (!text.StartsWith("MapT") || !int.TryParse(text.Substring(4), out var index))
+                return document;
+
+            var semanticModel = await document.GetSemanticModelAsync(cancellationToken);
+            var typeSymbol = semanticModel.GetTypeInfo(memberAccessExpression.Expression, cancellationToken).Type;
+
+            if (typeSymbol is not INamedTypeSymbol namedTypeSymbol ||
+                namedTypeSymbol.TypeArguments.Length < index + 1)
+            {
+                return document;
+            }
+
+            var typeArgument = HelperExtensions.GetTypeArgument(namedTypeSymbol.TypeArguments[index]);
+            var newMethodName = $"Map{typeArgument.ReadableName}";
+
+            // Find the InvocationExpressionSyntax that the memberAccessExpression is a part of
+            var invocationExpression = memberAccessExpression.FirstAncestorOrSelf<InvocationExpressionSyntax>();
+            if (invocationExpression == null)
+            {
+                // If the memberAccessExpression is not part of an invocation, we cannot proceed
+                return document;
+            }
+
+            // Retain the original expression and append the new method name
+            var newMemberAccess = SyntaxFactory.MemberAccessExpression(
+                SyntaxKind.SimpleMemberAccessExpression,
+                memberAccessExpression.Expression,
+                SyntaxFactory.IdentifierName(newMethodName));
+
+            // Create a new method invocation expression with the new member access
+            var newMethodInvocation = SyntaxFactory.InvocationExpression(
+                newMemberAccess,
+                invocationExpression.ArgumentList);
+
+            var root = await document.GetSyntaxRootAsync(cancellationToken);
+            if (root == null) return document;
+            var newRoot = root.ReplaceNode(invocationExpression, newMethodInvocation);
+
+            return document.WithSyntaxRoot(newRoot);
+        }
+
+        private async Task<Document> ConvertTryPickTAsync(Document document, MemberAccessExpressionSyntax memberAccessExpression, CancellationToken cancellationToken)
+        {
+            var text = memberAccessExpression.Name.Identifier.Text;
+
+            if (!text.StartsWith("TryPickT") || !int.TryParse(text.Substring(8), out var index))
+                return document;
+
+            var semanticModel = await document.GetSemanticModelAsync(cancellationToken);
+            var typeSymbol = semanticModel.GetTypeInfo(memberAccessExpression.Expression, cancellationToken).Type;
+
+            if (typeSymbol is not INamedTypeSymbol namedTypeSymbol ||
+                namedTypeSymbol.TypeArguments.Length < index + 1)
+            {
+                return document;
+            }
+
+            var typeArgument = HelperExtensions.GetTypeArgument(namedTypeSymbol.TypeArguments[index]);
+            var newMethodName = $"TryPick{typeArgument.ReadableName}";
+
+            // Find the InvocationExpressionSyntax that the memberAccessExpression is a part of
+            var invocationExpression = memberAccessExpression.FirstAncestorOrSelf<InvocationExpressionSyntax>();
+            if (invocationExpression == null)
+            {
+                // If the memberAccessExpression is not part of an invocation, we cannot proceed
+                return document;
+            }
+
+            // Retain the original expression and append the new method name
+            var newMemberAccess = SyntaxFactory.MemberAccessExpression(
+                SyntaxKind.SimpleMemberAccessExpression,
+                memberAccessExpression.Expression,
+                SyntaxFactory.IdentifierName(newMethodName));
+
+            // Create a new method invocation expression with the new member access
+            var newMethodInvocation = SyntaxFactory.InvocationExpression(
+                newMemberAccess,
+                invocationExpression.ArgumentList);
+
+            var root = await document.GetSyntaxRootAsync(cancellationToken);
+            if (root == null) return document;
+            var newRoot = root.ReplaceNode(invocationExpression, newMethodInvocation);
 
             return document.WithSyntaxRoot(newRoot);
         }

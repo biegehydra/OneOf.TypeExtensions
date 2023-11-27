@@ -70,7 +70,7 @@ namespace OneOf.TypeExtensions.CodeFix {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type cast &apos;{0}&apos; can be made type safe.
+        ///   Looks up a localized string similar to &apos;{0}&apos; can be replaced with type safe extension method.
         /// </summary>
         internal static string AsAnalyzerMessageFormat {
             get {
@@ -97,7 +97,7 @@ namespace OneOf.TypeExtensions.CodeFix {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type check &apos;{0}&apos; can be made type safe.
+        ///   Looks up a localized string similar to &apos;{0}&apos; can be replaced with type safe extension method.
         /// </summary>
         internal static string IsAnalyzerMessageFormat {
             get {
@@ -111,6 +111,60 @@ namespace OneOf.TypeExtensions.CodeFix {
         internal static string IsAnalyzerTitle {
             get {
                 return ResourceManager.GetString("IsAnalyzerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Map can be made type safe..
+        /// </summary>
+        internal static string MapAnalyzerDescription {
+            get {
+                return ResourceManager.GetString("MapAnalyzerDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; can be replaced with type safe extension method.
+        /// </summary>
+        internal static string MapAnalyzerMessageFormat {
+            get {
+                return ResourceManager.GetString("MapAnalyzerMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Map can be made type safe.
+        /// </summary>
+        internal static string MapAnalyzerTitle {
+            get {
+                return ResourceManager.GetString("MapAnalyzerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try pick can be made type safe..
+        /// </summary>
+        internal static string TryPickAnalyzerDescription {
+            get {
+                return ResourceManager.GetString("TryPickAnalyzerDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; can be replaced with type safe extension method.
+        /// </summary>
+        internal static string TryPickAnalyzerMessageFormat {
+            get {
+                return ResourceManager.GetString("TryPickAnalyzerMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try pick can be made type safe.
+        /// </summary>
+        internal static string TryPickAnalyzerTitle {
+            get {
+                return ResourceManager.GetString("TryPickAnalyzerTitle", resourceCulture);
             }
         }
     }
