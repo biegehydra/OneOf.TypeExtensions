@@ -86,6 +86,7 @@ Special consideration was given to support these types
 - [X] Nullable value types `int?`
 - [X] Nullable annotated reference types `string?`
 - [X] Value Tuples `(int?, string?)`
+- [X] Value Tuples with named fields `(int? Id, string? Name)` 
 - [X] Generics `List<int?>`
 - [X] Multiple Generics `Dictionary<string?, int?>`
 - [X] Nested generics `List<List<int?>>`
