@@ -66,7 +66,7 @@ public class TypeArgument(string readableName, string fullyQualified, TypeArgume
         {
             return ReadableName;
         }
-        return $"{_fullyQualified}<{string.Join("_", NestedTypeArguments.Select(x => x.FullyQualifiedName()))}>";
+        return $"{_fullyQualified}Of{string.Join("_", NestedTypeArguments.Select(x => x.HintName()))}";
     }
 
     public HashSet<string> SystemNamespaces()

@@ -23,7 +23,7 @@
 	  <RepositoryType>git</RepositoryType>
 	  <PackageTags>oneof, source generator, type extensions</PackageTags>
 	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	  <Version>1.0.2</Version>
+	  <Version>1.0.4</Version>
   </PropertyGroup>
 
 	<ItemGroup>
