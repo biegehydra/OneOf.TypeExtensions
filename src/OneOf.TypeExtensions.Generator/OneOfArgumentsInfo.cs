@@ -8,7 +8,7 @@ public class OneOfArgumentsInfo(TypeArgument[] typeArguments)
     public TypeArgument[] TypeArguments { get; } = typeArguments;
 }
 
-public class TypeArgument(string readableName, string fullyQualified, TypeArgument[] typeArguments, bool isNullableValueType, bool isNullableAnnotated, bool isTupleType)
+public class TypeArgument(string readableName, string fullyQualified, TypeArgument[] typeArguments, bool isNullableValueType, bool isNullableAnnotated, bool isTupleType, string? fieldName)
 {
     private readonly string _readableName = ReadableTypeAlias(readableName).Capitalize();
     public string ReadableName
@@ -23,13 +23,22 @@ public class TypeArgument(string readableName, string fullyQualified, TypeArgume
             if (isNullableValueType)
             {
                 // _readableName will be "Nullable", no need for "Of"
-                return $"{_readableName}{string.Join("_", NestedTypeArguments.Select(x => x.ReadableName))}";
+                    return $"{_readableName}{string.Join("_", NestedTypeArguments.Select(x => x.ReadableName))}";
             }
             return $"{_readableName}Of{string.Join("_", NestedTypeArguments.Select(x => x.ReadableName))}";
         }
     }
     private readonly string _fullyQualified = ReadableFullyQualifiedTypeAlias(fullyQualified);
     public string FullyQualifiedName()
+    {
+        if (fieldName == null)
+        {
+            return FullyQualifiedNameNoFieldName();
+        }
+        return $"{FullyQualifiedNameNoFieldName()} {fieldName}";
+    }
+
+    private string FullyQualifiedNameNoFieldName()
     {
         if (isNullableValueType)
         {

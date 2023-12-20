@@ -2,7 +2,7 @@
   "profiles": {
     "Profile 1": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\OneOf.TypeExtensions.ConsoleTesting\\OneOf.TypeExtensions.ConsoleTesting.csproj"
+      "targetProject": "..\\TestingConsoleApp\\TestingConsoleApp.csproj"
     }
   }
 }

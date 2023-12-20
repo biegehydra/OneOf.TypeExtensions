@@ -133,6 +133,15 @@ namespace OneOf.TypeExtensions.Tests
             oneOf2.TryPickTupleOfNullableInt_String_NullableChar(out var value2, out string remainder2);
             Assert.AreEqual(1, value2.Item1);
         }
+
+        [TestMethod]
+        public void NamedTuples()
+        {
+            OneOf<string, (int? Id, string Name)> oneOf = (1, "test");
+            var tuple = oneOf.AsValueTupleOfNullableInt_String();
+            Assert.AreEqual(1, tuple.Id);
+            Assert.AreEqual("test", tuple.Name);
+        }
     }
 }
 

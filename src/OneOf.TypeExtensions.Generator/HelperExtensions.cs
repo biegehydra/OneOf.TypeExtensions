@@ -37,13 +37,48 @@ public static class HelperExtensions
         var fullyQualifiedName = typeSymbol.ToDisplayString(FullyQualifiedNameFormat);
 
         TypeArgument[] nestedTypeArguments = Array.Empty<TypeArgument>();
-        if (typeSymbol is INamedTypeSymbol { IsGenericType: true } namedTypeSymbol)
+        // If the tuple elements have default names then we just want to treat them as generic arguments
+        if (typeSymbol.IsTupleType && typeSymbol is INamedTypeSymbol tuple 
+                && !tuple.TupleElements.All(x => x.Name.StartsWith("Item") && char.IsDigit(x.Name.LastOrDefault())))
+        {
+            nestedTypeArguments = tuple.TupleElements
+                .Select(GetTypeArgument)
+                .ToArray();
+        }
+        else if (typeSymbol is INamedTypeSymbol { IsGenericType: true } namedTypeSymbol)
         {
             nestedTypeArguments = namedTypeSymbol.TypeArguments
                 .OfType<INamedTypeSymbol>()
                 .Select(GetTypeArgument)
                 .ToArray();
         }
-        return new TypeArgument(readableName, fullyQualifiedName, nestedTypeArguments, isNullableValueType, isNullableAnnotated, isTupleType);
+        return new TypeArgument(readableName, fullyQualifiedName, nestedTypeArguments, isNullableValueType, isNullableAnnotated, isTupleType, null);
+    }
+
+    private static TypeArgument GetTypeArgument(IFieldSymbol fieldSymbol)
+    {
+        var typeSymbol = fieldSymbol.Type;
+        var isNullableValueType = typeSymbol is { IsValueType: true, NullableAnnotation: NullableAnnotation.Annotated };
+        var isNullableAnnotated = typeSymbol.NullableAnnotation == NullableAnnotation.Annotated;
+        var isTupleType = typeSymbol.IsTupleType;
+        var readableName = typeSymbol.Name;
+        var fullyQualifiedName = typeSymbol.ToDisplayString(FullyQualifiedNameFormat);
+
+        TypeArgument[] nestedTypeArguments = Array.Empty<TypeArgument>();
+        if (typeSymbol.IsTupleType && typeSymbol is INamedTypeSymbol tuple
+                && !tuple.TupleElements.All(x => x.Name.StartsWith("Item") && char.IsDigit(x.Name.LastOrDefault())))
+        {
+            nestedTypeArguments = tuple.TupleElements
+                .Select(GetTypeArgument)
+                .ToArray();
+        }
+        else if (typeSymbol is INamedTypeSymbol { IsGenericType: true } namedTypeSymbol)
+        {
+            nestedTypeArguments = namedTypeSymbol.TypeArguments
+                .OfType<INamedTypeSymbol>()
+                .Select(GetTypeArgument)
+                .ToArray();
+        }
+        return new TypeArgument(readableName, fullyQualifiedName, nestedTypeArguments, isNullableValueType, isNullableAnnotated, isTupleType, fieldSymbol.Name);
     }
 }
